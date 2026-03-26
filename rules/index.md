@@ -137,7 +137,7 @@ rules/
 ├── dotnet-server/
 │   ├── index.md                          ← .NET 服务端规则总入口
 │   ├── common/                           ← 16 个通用规则文件
-│   └── profiles/                         ← 单体 + 微服务 profile
+│   └── profiles/                         ← 单体 + 微服务 profile（含 8 个微服务专题）
 ├── dotnet-desktop.md                     ← .NET 桌面兼容入口
 ├── dotnet-desktop/
 │   ├── index.md                          ← .NET 桌面规则总入口

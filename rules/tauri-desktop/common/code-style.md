@@ -10,8 +10,9 @@
    - 模块/文件：`snake_case`（`auto_update.rs`）
 3. Tauri Command 函数命名使用 `snake_case`，前端调用时自动转为 `camelCase`。
 4. 公开 API（`pub fn`、`pub struct`）必须有 `///` 文档注释。
-5. 禁止 `unwrap()` 出现在生产代码中，使用 `?` 操作符或 `expect("明确原因")`。
-6. 禁止 `unsafe` 块，除非有充分理由并在 PR 中说明。
+5. 注释语言统一使用中文；与外部开源库交互的接口适配文件允许使用英文。
+6. 禁止 `unwrap()` 出现在生产代码中，使用 `?` 操作符或 `expect("明确原因")`。
+7. 禁止 `unsafe` 块，除非有充分理由并在 PR 中说明。
 
 ## 前端代码风格（MUST）
 

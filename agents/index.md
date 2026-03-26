@@ -115,6 +115,8 @@
 ```
 agents/
 ├── index.md                          ← 本文件（Agent 模式总入口）
+├── _templates/
+│   └── domain-agent-workflow.md     ← 域 Agent 通用工作流模板
 ├── protocols/
 │   ├── coordination.md               ← 协调协议（全生命周期编排）
 │   ├── handoff.md                    ← 交接协议

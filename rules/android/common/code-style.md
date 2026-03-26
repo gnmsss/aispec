@@ -11,7 +11,8 @@
    - 资源文件：`snake_case`（`ic_user_avatar.xml`、`activity_main.xml`）
 3. Composable 函数命名使用 `PascalCase`（`UserProfileCard`），非 Composable 函数使用 `camelCase`。
 4. 公开 API（`public` / `internal` 类与函数）必须有 KDoc 文档注释。
-5. 优先使用 Kotlin 惯用写法：
+5. 注释语言统一使用中文；与外部开源库交互的接口适配文件允许使用英文。
+6. 优先使用 Kotlin 惯用写法：
    - 优先 `data class` 而非手动实现 `equals`/`hashCode`
    - 优先 `sealed class`/`sealed interface` 建模有限状态
    - 优先 `when` 表达式而非 `if-else` 链

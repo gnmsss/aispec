@@ -41,6 +41,23 @@ structlog.configure(
 2. 关键操作日志（创建、删除、权限变更）单独标记，便于审计查询。
 3. 日志量过大时支持采样策略（如 DEBUG 日志仅采样 10%）。
 
+### 日志文件轮转（MUST，输出到文件时适用）
+1. 当日志输出目标为文件时，必须配置日志轮转策略，禁止单文件无限增长。
+2. 单个日志文件最大大小必须可配置（建议默认 100MB），超过后自动切分新文件。
+3. 日志保留天数必须可配置（建议默认 7 天），超过保留期的日志文件必须自动清理。
+4. 日志轮转后的文件命名须包含日期或序号，便于排序检索。
+5. 推荐使用 `RotatingFileHandler` + `TimedRotatingFileHandler` 或 `concurrent-log-handler` 实现，配置示例：
+   ```python
+   from logging.handlers import RotatingFileHandler
+
+   handler = RotatingFileHandler(
+       filename="logs/app.log",
+       maxBytes=100 * 1024 * 1024,  # 100MB
+       backupCount=7,
+       encoding="utf-8",
+   )
+   ```
+
 检查方式：代码审查 + 日志平台配置审查
 阻断级别：阻断合并
 

@@ -77,11 +77,12 @@ async def unhandled_exception_handler(request: Request, exc: Exception):
 4. 异常链必须保留根因：使用 `raise AppException(...) from original_exception`。
 5. 禁止使用裸 `except:`，必须指定具体异常类型；确需捕获所有异常时使用 `except Exception:`。
 
-## 错误码治理
-1. 同一服务内错误码唯一且语义稳定。
-2. 新增错误码必须补充文档和测试。
-3. 业务错误码应按作用域分段管理（如 `USER_` 前缀、`ORDER_` 前缀），避免不同模块错误码冲突。
-4. 错误码推荐使用字符串而非数字（如 `"USER_NOT_FOUND"` 而非 `40001`），提高可读性。
+## 错误码治理（MUST）
+1. 同一服务内错误码唯一且语义稳定，必须定义为常量或枚举，按模块集中管理（如 `app/modules/user/error_codes.py`、`app/modules/order/error_codes.py`），禁止在 service 中内联硬编码错误码字符串。
+2. 业务异常必须引用集中定义的错误码创建（如 `raise AppException(UserErrors.NOT_FOUND, "用户不存在")`），禁止 `raise AppException("随意编码", "随意消息")`。
+3. 新增错误码必须补充文档和测试。
+4. 业务错误码应按作用域分段管理（如 `USER_` 前缀、`ORDER_` 前缀），避免不同模块错误码冲突。
+5. 错误码推荐使用字符串而非数字（如 `"USER_NOT_FOUND"` 而非 `40001`），提高可读性。
 
 ## 上下文传播
 1. 异常中必须携带足够的上下文信息，便于日志排查：操作名称、资源标识、依赖名称。

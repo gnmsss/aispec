@@ -10,8 +10,9 @@
    - 文件/模块：`camelCase` 或 `kebab-case`（`windowManager.ts`、`update-service.ts`）
 3. IPC channel 命名使用 `kebab-case` 加域前缀（如 `user:get-profile`、`file:read-content`）。
 4. 公开模块导出必须有 JSDoc/TSDoc 注释。
-5. 禁止使用 `any` 类型，必须 `"strict": true`。
-6. 禁止在主进程代码中使用 `console.log` 调试输出，必须使用结构化日志库。
+5. 注释语言统一使用中文；与外部开源库交互的接口适配文件允许使用英文。
+6. 禁止使用 `any` 类型，必须 `"strict": true`。
+7. 禁止在主进程代码中使用 `console.log` 调试输出，必须使用结构化日志库。
 
 ## preload 脚本代码风格（MUST）
 

@@ -22,6 +22,22 @@
 2. 推荐为每个请求生成 `requestId`（UUID v4），通过 AsyncLocalStorage 在整个请求链路中传递。
 3. 推荐将日志采集到 ELK/Loki 等集中式日志系统。
 
+### 日志文件轮转（MUST，输出到文件时适用）
+1. 当日志输出目标为文件时，必须配置日志轮转策略，禁止单文件无限增长。
+2. 单个日志文件最大大小必须可配置（建议默认 100MB），超过后自动切分新文件。
+3. 日志保留天数必须可配置（建议默认 7 天），超过保留期的日志文件必须自动清理。
+4. 日志轮转后的文件命名须包含日期或序号，便于排序检索。
+5. 推荐使用 `pino-roll` 或 `winston-daily-rotate-file` 实现日志轮转，配置示例（winston）：
+   ```javascript
+   const transport = new DailyRotateFile({
+     filename: 'logs/app-%DATE%.log',
+     datePattern: 'YYYY-MM-DD',
+     maxSize: '100m',
+     maxFiles: '7d',
+     zippedArchive: true,
+   });
+   ```
+
 检查方式：日志格式审查 + CI lint
 阻断级别：阻断合并
 

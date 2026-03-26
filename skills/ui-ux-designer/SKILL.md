@@ -23,7 +23,7 @@ description: UI/UX 设计师技能。当需要创建或更新界面设计方案�
 1. 按四阶段逐步执行，每个阶段产出明确的中间产物。
 2. 以 `references/design-scenario-map.md` 为阶段路由表。
 3. 以 `rules/design/` 下的规范文件为设计约束。
-4. 使用 Pencil MCP 时必须先调用 `get_guidelines`（topic: "general"）。
+4. 使用 Pencil MCP 时必须先调用 `get_guidelines`（topic 按场景选择：`web-app` / `mobile-app` / `design-system`）。
 5. 设计 Token 必须导出为 CSS 变量格式，便于前端直接使用。
 6. Pencil MCP 不可用时退化为文本化设计方案 + CSS 变量定义。
 

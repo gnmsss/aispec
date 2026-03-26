@@ -16,7 +16,7 @@
    - `BusinessException extends BaseException`：业务可纠正异常。
    - `SystemException extends BaseException`：系统内部异常。
 2. 禁止直接抛出 `RuntimeException`、`Exception` 等通用异常，必须使用自定义异常类型。
-3. 异常类必须支持通过错误码枚举快速构造，如 `BusinessException.of(ErrorCode.USER_NOT_FOUND)`。
+3. 业务异常必须通过错误码枚举构造（如 `BusinessException.of(ErrorCode.USER_NOT_FOUND)`），禁止直接使用内联字符串构造（如 `new BusinessException("SOME_CODE", "随意消息")`）。
 4. 每个异常实例必须包含 `errorCode`（String）和 `message`（String），可选包含 `data`（附加信息）。
 
 ## 统一异常处理（MUST）
@@ -66,7 +66,7 @@ public class GlobalExceptionHandler {
 
 ## 错误码治理（MUST）
 
-1. 同一服务内错误码唯一且语义稳定，使用枚举或常量类集中定义。
+1. 同一服务内错误码唯一且语义稳定，必须使用枚举类集中定义，禁止在 Service 中内联硬编码错误码字符串。错误码枚举按模块拆文件（如 `UserErrorCode.java`、`OrderErrorCode.java`）。
 2. 错误码格式推荐：`{模块}_{错误描述}`，如 `USER_NOT_FOUND`、`ORDER_DUPLICATE`。
 3. 新增错误码必须补充文档和测试。
 4. 业务错误码应按模块分段管理，避免不同模块错误码冲突。

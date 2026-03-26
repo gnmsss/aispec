@@ -338,6 +338,6 @@ Agent 启动任务
 |-----|---------|
 | 搜索 MCP | 尝试调用一次搜索工具（如搜索 "test"），确认返回结果 |
 | Playwright MCP | 尝试调用 `browser_navigate` 打开一个测试页面 |
-| Pencil MCP | 尝试调用 `get_guidelines`（topic: "general"），确认返回设计规范 |
+| Pencil MCP | 尝试调用 `get_guidelines`（topic: "design-system"），确认返回设计规范 |
 
 验证失败时，向用户报告错误信息，提供排查建议。

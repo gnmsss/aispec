@@ -14,7 +14,8 @@
    - `fetchUser(byId:)` 而非 `getUserById()`
    - `remove(at:)` 而非 `removeAtIndex()`
 5. 公开 API（`public` / `open`）必须有 `///` 文档注释。
-6. 使用最严格的访问控制：默认 `private`，按需逐步放宽到 `internal` / `public`。
+6. 注释语言统一使用中文；与外部开源库交互的接口适配文件允许使用英文。
+7. 使用最严格的访问控制：默认 `private`，按需逐步放宽到 `internal` / `public`。
 
 ## Swift 惯用写法（MUST）
 

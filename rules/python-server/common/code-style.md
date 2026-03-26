@@ -23,9 +23,10 @@
 ## Docstring 规范（MUST）
 1. 所有公开类、函数、方法必须编写 docstring，说明职责、参数、返回值和异常。
 2. docstring 风格统一使用 Google 风格或 NumPy 风格，项目内禁止混用。
-3. docstring 语言统一使用中文；与外部开源库交互的接口适配文件允许使用英文。
-4. 禁止无意义 docstring（如 `"""创建用户"""` 后面跟 `def create_user()`），必须提供代码本身未表达的信息。
-5. 接口/抽象类的 docstring 必须说明实现方的职责约束和预期行为契约。
+3. ORM Model 和 Pydantic Schema 的所有字段必须有注释（docstring 或 `Field(description="...")`），说明字段含义与约束。持久化模型字段注释需包含数据库列含义。
+4. docstring 语言统一使用中文；与外部开源库交互的接口适配文件允许使用英文。
+5. 禁止无意义 docstring（如 `"""创建用户"""` 后面跟 `def create_user()`），必须提供代码本身未表达的信息。
+6. 接口/抽象类的 docstring 必须说明实现方的职责约束和预期行为契约。
 
 ### SHOULD
 1. TODO/FIXME 注释必须附带责任人和预计回收时间（如 `# TODO(zhangsan): 2026-04 迁移到新接口`）。

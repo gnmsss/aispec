@@ -88,7 +88,8 @@
    }
    ```
 
-## 错误码治理
-1. 同一服务内错误码唯一且语义稳定。
-2. 新增错误码必须补充文档和测试。
-3. 业务错误码应按作用域分段管理，避免 `User`、`Order`、`System` 等作用域互相混用或冲突。
+## 错误码治理（MUST）
+1. 同一服务内错误码唯一且语义稳定，必须定义为常量类，按业务域分文件管理（如 `UserErrorCodes.cs`、`OrderErrorCodes.cs`），禁止在 Service 中内联硬编码错误码字符串。
+2. 业务异常必须引用集中定义的错误码常量构造（如 `throw new BusinessException(UserErrorCodes.NotFound, "用户不存在")`），禁止 `throw new BusinessException("随意编码", "随意消息")`。
+3. 新增错误码必须补充文档和测试。
+4. 业务错误码应按作用域分段管理，避免 `User`、`Order`、`System` 等作用域互相混用或冲突。

@@ -56,6 +56,13 @@
 
 ### 微服务规则（profiles/microservice）— 按需加载命中文件
 18. `profiles/microservice/project-structure.md` — 微服务目录结构与边界
+19. `profiles/microservice/communication-and-contracts.md` — 服务间通信与契约治理
+20. `profiles/microservice/config-center.md` — 配置中心与动态配置
+21. `profiles/microservice/containerization.md` — 容器化部署与 Kubernetes 运行约束
+22. `profiles/microservice/deployment-and-release.md` — 版本管理与灰度发布
+23. `profiles/microservice/messaging.md` — 异步消息与消息队列
+24. `profiles/microservice/resilience.md` — 限流、熔断与降级
+25. `profiles/microservice/service-discovery.md` — 服务注册与发现
 
 ### 跨端协作
 19. `rules/frontend-backend-collaboration.md` — 前后端契约、联调、发布回滚

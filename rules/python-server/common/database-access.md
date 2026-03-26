@@ -78,3 +78,14 @@ for user_id in user_ids:
 # alembic/env.py — 必须指向 SQLAlchemy Base.metadata
 target_metadata = Base.metadata
 ```
+
+## 数据库操作日志（MUST）
+1. 所有数据库操作必须可追踪，通过 ORM 的日志机制或事件监听记录操作日志，至少包含：操作类型、目标表、执行耗时、是否成功。
+2. 慢查询阈值必须可配置（建议默认 200ms），超过阈值的查询必须以 `WARNING` 级别记录日志并标记 `slow_query: True`。
+3. 慢查询日志必须与正常应用日志输出到同一日志通道（不单独分离文件），通过日志级别和标记字段区分。
+4. 慢查询日志须包含：SQL 语句（脱敏后）、执行耗时、影响行数、调用来源。
+5. SQLAlchemy 项目推荐使用 `event.listen(engine, "before_cursor_execute")` / `"after_cursor_execute"` 事件对实现；Django 项目推荐使用 `django.db.connection.queries` 或中间件实现。
+6. 开发环境允许开启全量 SQL 日志（SQLAlchemy `echo=True`），生产环境仅记录慢查询和错误查询。
+
+检查方式：慢查询日志审查 + EXPLAIN 审查 + 代码审查
+阻断级别：阻断合并
