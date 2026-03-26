@@ -56,19 +56,65 @@
 
 ## 上下文传递
 
+### Subagent 上下文限制（MUST 理解）
+
+在 Cursor 等平台的多 Agent 模式下，域 Agent 通常以 **subagent**（如 Cursor Task subagent）形式 spawn 执行。Subagent 与主 AI 的关键差异：
+
+| 能力 | 主 AI（Coordinator） | Subagent（域 Agent） |
+|------|---------------------|---------------------|
+| `available_skills` 上下文 | 有（系统提示中列出所有 Skill 的绝对路径） | **无**（仅接收 prompt 文本） |
+| 自动定位 SKILL.md | 可以 | **不可以** |
+| 读取工作区文件 | 可以 | 可以（但需知道路径） |
+
+因此 Coordinator 在调度请求中**必须提供完整的文件路径引用**，使 subagent 能定位 Agent 定义、Skill 文件、场景路由表和规则文件。路径省略是域 Agent 规则加载失败的首要原因。
+
 ### 调度请求格式（Coordinator → 域 Agent）
 Coordinator 向每个域 Agent 发送调度请求时，必须包含以下信息：
 
 ```
 ## 调度请求
+
+### 任务信息
 - 任务摘要：{用户原始任务的精简描述}
 - 任务类型：{product / spec / design / design-review / coding / review / scaffold / rule-maintenance / security-audit / testing / devops}
 - 任务 ID：{$task-planner 生成的任务 ID，如 ORDER-DB-001；无则留空}
-- 域上下文：{前序域 Agent 的输出摘要，如 Schema 定义、API 契约等}
+
+### 文件路径引用（MUST — subagent 依赖这些路径定位文件）
+- 域 Agent 定义：{agents/<domain>/agent.md}
+- Skill 入口文件：{skills/<skill-name>/SKILL.md}
+- 工作流模板：{skills/_templates/<workflow>.md，从 SKILL.md 的 workflow 字段获取}
+- 场景路由表：{skills/<skill-name>/references/coding-scenario-map.md，从 SKILL.md 的 scenario_map 字段获取}
+- 规则索引：{rules/<domain>/index.md，从 SKILL.md 的 rules_index 字段获取}
+
+### 域上下文
+- 前序输出：{前序域 Agent 的输出摘要，如 Schema 定义、API 契约等}
 - Spec 输入：{从 Spec 中截取的相关章节内容}
 - Design 输入：{从设计稿中截取的相关页面/组件信息，无则留空}
 - 约束提示：{跨域冲突仲裁提示，如"数据库规则优先级最高"}
 ```
+
+#### 文件路径查表方法
+Coordinator 从 `agents/index.md` 的"Agent 索引"表中获取每个域 Agent 的定义文件和可用 Skill。然后从对应的 SKILL.md 中获取 `workflow`、`scenario_map`、`rules_index` 字段值。常用域的文件路径速查：
+
+| 域 | Agent 定义 | Skill（coding） | 场景路由表 | 规则索引 |
+|----|-----------|----------------|-----------|---------|
+| Database | `agents/database/agent.md` | `skills/database-coding-guide/SKILL.md` | `skills/database-coding-guide/references/coding-scenario-map.md` | `rules/database/index.md` |
+| GoServer | `agents/go-server/agent.md` | `skills/go-server-coding-guide/SKILL.md` | `skills/go-server-coding-guide/references/coding-scenario-map.md` | `rules/go-server/index.md` |
+| Frontend | `agents/frontend/agent.md` | `skills/frontend-coding-guide/SKILL.md` | `skills/frontend-coding-guide/references/coding-scenario-map.md` | `rules/frontend/index.md` |
+| Collaboration | `agents/collaboration/agent.md` | `skills/frontend-backend-coding-guide/SKILL.md` | `skills/frontend-backend-coding-guide/references/coding-scenario-map.md` | `rules/frontend-backend-collaboration.md` |
+| DotnetServer | `agents/dotnet-server/agent.md` | `skills/dotnet-server-coding-guide/SKILL.md` | `skills/dotnet-server-coding-guide/references/coding-scenario-map.md` | `rules/dotnet-server/index.md` |
+| PythonServer | `agents/python-server/agent.md` | `skills/python-server-coding-guide/SKILL.md` | `skills/python-server-coding-guide/references/coding-scenario-map.md` | `rules/python-server/index.md` |
+| JavaServer | `agents/java-server/agent.md` | `skills/java-server-coding-guide/SKILL.md` | `skills/java-server-coding-guide/references/coding-scenario-map.md` | `rules/java-server/index.md` |
+| NodeServer | `agents/node-server/agent.md` | `skills/node-server-coding-guide/SKILL.md` | `skills/node-server-coding-guide/references/coding-scenario-map.md` | `rules/node-server/index.md` |
+| Android | `agents/android/agent.md` | `skills/android-coding-guide/SKILL.md` | `skills/android-coding-guide/references/coding-scenario-map.md` | `rules/android/index.md` |
+| iOS | `agents/ios/agent.md` | `skills/ios-coding-guide/SKILL.md` | `skills/ios-coding-guide/references/coding-scenario-map.md` | `rules/ios/index.md` |
+| Flutter | `agents/flutter/agent.md` | `skills/flutter-coding-guide/SKILL.md` | `skills/flutter-coding-guide/references/coding-scenario-map.md` | `rules/flutter/index.md` |
+| ReactNative | `agents/react-native/agent.md` | `skills/react-native-coding-guide/SKILL.md` | `skills/react-native-coding-guide/references/coding-scenario-map.md` | `rules/react-native/index.md` |
+| DotnetDesktop | `agents/dotnet-desktop/agent.md` | `skills/dotnet-desktop-coding-guide/SKILL.md` | `skills/dotnet-desktop-coding-guide/references/coding-scenario-map.md` | `rules/dotnet-desktop/index.md` |
+| TauriDesktop | `agents/tauri-desktop/agent.md` | `skills/tauri-desktop-coding-guide/SKILL.md` | `skills/tauri-desktop-coding-guide/references/coding-scenario-map.md` | `rules/tauri-desktop/index.md` |
+| ElectronDesktop | `agents/electron-desktop/agent.md` | `skills/electron-desktop-coding-guide/SKILL.md` | `skills/electron-desktop-coding-guide/references/coding-scenario-map.md` | `rules/electron-desktop/index.md` |
+
+注：非 coding 类任务（review / scaffold / rule-maintenance）替换对应的 skill 名称即可（如 `*-code-reviewer`、`*-project-scaffold`、`*-rules-maintainer`）。Product / Spec / Design / Security / QA / DevOps 域的 Skill 路径参见 `agents/index.md` 的 Agent 索引表。
 
 ### 结果回传格式（域 Agent → Coordinator）
 遵循 `agents/protocols/agent-output-format.md` 的标准输出格式，按 `agents/protocols/execution-trace.md` 格式附执行追溯。

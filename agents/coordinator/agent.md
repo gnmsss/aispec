@@ -66,8 +66,11 @@
 
 ### 4. 逐阶段调度
 - 按阶段顺序调度域 Agent。
-- 每次调度包含：任务摘要、任务类型、域上下文（前序域的输出）、约束提示。
 - 同阶段内可并行的域 Agent 同时调度。
+- 每次调度必须执行以下子步骤：
+  1. **查表获取文件路径**：从 `agents/index.md` 的 Agent 索引表获取目标域的 `agent.md` 路径和可用 Skill 名称；再从对应 SKILL.md 的域参数中获取 `workflow`、`scenario_map`、`rules_index` 字段值。也可直接查阅 `agents/protocols/coordination.md` 中的"文件路径查表方法"。
+  2. **构造完整调度请求**：按 `agents/protocols/coordination.md` 的"调度请求格式"构造请求，**必须包含"文件路径引用"部分**（域 Agent 定义、Skill 入口文件、工作流模板、场景路由表、规则索引）。Subagent 不具备主 AI 的 `available_skills` 上下文，省略文件路径将导致规则加载失败。
+  3. **发送调度请求**：通过平台机制（如 Cursor Task subagent）将调度请求发送给域 Agent，prompt 中需包含初始化步骤指引（见 `agents/adapters/cursor/README.md` 的 Subagent Prompt 构造模板）。
 
 ### 5. 监控与仲裁
 - 监控各域 Agent 的执行状态。

@@ -13,3 +13,6 @@ desktop.ini
 # Temp
 *.tmp
 *.bak
+
+# windows 
+rules/default.rules
