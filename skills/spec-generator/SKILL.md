@@ -42,7 +42,7 @@ description: 技术规格说明书生成器。新项目立项、技术选型、�
 ## Phase 5:汇总输出
 
 1. 一致性检查:模块 API 互相引用一致、数据模型无冲突、错误码不重复、约束与决策不矛盾、MVP 范围与模块优先级对齐。
-2. 产出:完整项目 Spec(愿景 + 决策 + 约束 + 模块)+ ADR + 风险清单(风险/影响/缓解)+ 里程碑计划。
+2. 产出:完整项目 Spec(愿景 + 决策 + 约束 + 模块)+ ADR + 风险清单(风险/影响/缓解)+ 里程碑计划;保存到 `docs/proposals/`(PROP 编号与元信息遵循 `rules/documentation.md`)。
 3. 告知用户后续衔接:
    - 数据库 Schema 落地 → `database` skill(遵循 `rules/database.md`)
    - 各域编码 → 对应域 skill(go-server / frontend / flutter 等)

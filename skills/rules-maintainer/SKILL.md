@@ -10,7 +10,7 @@ description: AISpec 规范维护工具。新增、修改、校验本仓库 rules
 ## 仓库结构契约
 
 1. 每个技术域:`rules/<域>/baseline.md`(≤150 行,硬约束 + 红线)+ `rules/<域>/practices.md`(≤300 行,场景实践);对应 `skills/<域>/SKILL.md`(编码引导 + 审查清单 + 脚手架三节)。
-2. 跨域单文件(≤250 行):`rules/database.md`、`security.md`、`collaboration.md`、`design.md`、`testing.md`、`operations.md`。
+2. 跨域单文件(≤250 行):`rules/database.md`、`security.md`、`collaboration.md`、`design.md`、`testing.md`、`operations.md`、`documentation.md`。
 3. 入口:`AGENTS.md`(域索引 + 加载策略 + 冲突仲裁);`CLAUDE.md` 仅导入 AGENTS.md。
 4. SKILL.md frontmatter 仅 `name`(== 目录名)+ `description`(含触发场景);禁止自定义字段与 `$skill` 引用语法。
 

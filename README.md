@@ -14,8 +14,8 @@
 AI 编码助手能力强大,但缺乏统一工程规范约束,容易在不同会话、不同成员间产生风格不一致、最佳实践遗漏等问题。AISpec 提供一套结构化的**规则(rules)+ 技能(skills)**,让 AI 在编码、审查、脚手架、设计等环节始终遵循团队工程标准。
 
 - **11 个技术域**:Go / .NET / Python / Node.js / Rust 服务端 · Vue3 + uni-app 前端 · Tauri / .NET 桌面 · Flutter / Android / iOS
-- **6 类跨域规范**:数据库 · 安全 · 前后端协作 · 设计 · 测试 · 运维
-- **16 个 Skills**:每域一个三合一 skill(编码引导 + 审查清单 + 脚手架)+ 4 个横切 skill
+- **7 类跨域规范**:数据库 · 安全 · 前后端协作 · 设计 · 测试 · 运维 · 项目文档
+- **17 个 Skills**:每域一个三合一 skill(编码引导 + 审查清单 + 脚手架)+ 5 个横切 skill
 - **标准格式**:AGENTS.md + Anthropic SKILL.md 格式,主流 AI CLI 开箱即用
 
 ## 体系结构
@@ -27,10 +27,10 @@ aispec/
 ├── rules/                    ← 规则真源
 │   ├── <域>/baseline.md      ← 必载:硬约束 + 红线
 │   ├── <域>/practices.md     ← 按需:场景实践
-│   └── database|security|collaboration|design|testing|operations.md
+│   └── database|security|collaboration|design|testing|operations|documentation.md
 └── skills/                   ← 任务入口(标准 SKILL.md)
-    ├── <域>/SKILL.md          ← 10 个域 skill + database
-    └── spec-generator | security-auditor | design-guide | rules-maintainer
+    ├── <域>/SKILL.md          ← 11 个域 skill + database
+    └── spec-generator | security-auditor | design-guide | project-docs | rules-maintainer
 ```
 
 ## 快速开始

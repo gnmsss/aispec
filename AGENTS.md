@@ -28,6 +28,7 @@
 | 设计规范 | `rules/design.md` | UI 设计、视觉、交互、无障碍、响应式 |
 | 测试规范 | `rules/testing.md` | E2E 测试、性能测试 |
 | 运维基线 | `rules/operations.md` | 可观测性、环境管理、发布回滚 |
+| 文档规范 | `rules/documentation.md` | 需求/方案/计划/任务/测试/验收全流程文档 |
 
 ## 横切 Skills
 
@@ -36,6 +37,7 @@
 | `spec-generator` | 新项目技术规格说明书(五阶段引导) |
 | `security-auditor` | 安全审计(OWASP、密钥、依赖、威胁建模) |
 | `design-guide` | UI/UX 设计方案与设计走查 |
+| `project-docs` | 项目过程文档(需求→验收)的编写与审查 |
 | `rules-maintainer` | 本仓库规范文件的维护与校验 |
 
 ## 通用编码约束(所有域必遵,MUST)
