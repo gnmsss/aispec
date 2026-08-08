@@ -1,62 +1,49 @@
 ---
 name: spec-generator
-description: 项目规格说明书生成器。当需要进行技术选型、架构设计、模块拆分或编写完整项目 Spec 时触发。通过五阶段引导（愿景→技术决策→全局约束→模块拆分→汇总）帮助用户产出结构化的技术规格文档。每个技术决策提供 1-3 个方案对比。
+description: 技术规格说明书生成器。新项目立项、技术选型、架构设计、模块拆分或需要编写完整项目 Spec 时使用。五阶段引导(愿景→技术决策→全局约束→模块拆分→汇总),每个技术决策提供 1-3 个方案对比。
 ---
 
-# 项目规格说明书生成器
+# 技术规格说明书生成器
 
-通过交互式引导，帮助用户完成从项目愿景到模块 Spec 的全流程技术规格定义。
+通过交互式引导,从项目愿景到模块 Spec 完成全流程技术规格定义。逐阶段推进,每阶段与用户确认后再进入下一阶段;推荐必须结合具体上下文(项目规模、团队能力、性能需求),不做泛泛推荐。
 
-## 何时使用
-1. 新项目立项，需要技术选型和架构设计。
-2. 用户要求编写 Spec 或技术方案。
-3. 需要进行模块拆分和接口定义。
-4. 由 Coordinator 在 Phase 0 调度时。
+## Phase 1:项目愿景
 
-## 执行原则
-1. 按五阶段逐步引导，每个阶段产出明确的中间产物。
-2. 以 `references/spec-scenario-map.md` 为阶段路由表。
-3. 每个技术决策提供 1-3 个备选方案，包含优缺点对比和推荐理由。
-4. 推荐必须引用具体上下文（项目规模、团队能力、性能需求），不做泛泛推荐。
-5. 最终产出使用 `agents/spec/templates/` 下的模板格式。
-6. Spec 中的技术决策和约束要足够具体，可供各域 Agent 直接消费。
+引导明确:系统目标(一句话)、核心用户与场景、功能矩阵(P0/P1/P2 分级)、MVP 范围、明确不做的事。
+产出:项目愿景文档。
 
-## 标准工作流（必须执行）
+## Phase 2:技术决策
 
-### Phase 1：项目愿景
-- 参考 `agents/spec/phases/01-vision.md` 中的引导问题。
-- 明确系统目标、核心用户、功能矩阵、MVP 范围。
-- 产出：项目愿景文档。
+逐项决策,每项给 1-3 个备选方案(优缺点 + 结合上下文的推荐理由):
 
-### Phase 2：技术决策
-- 参考 `agents/spec/phases/02-decisions.md` 中的引导问题。
-- 逐项决策：架构模式、编程语言、数据库、缓存、消息队列、认证方案、API 风格、文件存储、搜索方案、部署模式。
-- 每个决策点提供 1-3 个方案对比。
-- 产出：技术决策清单（含 ADR）。
+1. 架构模式(单体/微服务/Serverless)
+2. 编程语言与框架(参考本仓库支持域:Go/.NET/Python/Node 服务端、Vue/uni-app 前端、Tauri/.NET 桌面、Flutter/Android/iOS 移动端)
+3. 数据库(mysql/postgresql,必须让用户明确选择)
+4. 缓存、消息队列(是否需要 + 选型)
+5. 认证方案(JWT/Session/OAuth)、API 风格(REST/gRPC)
+6. 文件存储、搜索方案(如需要)
+7. 部署模式(容器/K8s/传统)
 
-### Phase 3：全局约束
-- 参考 `agents/spec/phases/03-constraints.md` 中的引导问题。
-- 定义 10 个维度的约束：安全、性能、可用性、扩展性、合规、成本、部署、三方集成、数据策略、监控。
-- 产出：全局约束矩阵。
+产出:技术决策清单,重要决策记 ADR(背景/选项/决定/后果)。
 
-### Phase 4：模块拆分
-- 参考 `agents/spec/phases/04-modules.md` 中的引导问题。
-- 拆分模块，定义模块间依赖关系。
-- 每个模块产出 12 维 Spec（职责/数据结构/API/业务规则/边界/状态机/权限/事件/错误处理/依赖/测试/迁移）。
-- 产出：模块清单 + 各模块 Spec。
+## Phase 3:全局约束
 
-### Phase 5：汇总输出
-- 参考 `agents/spec/phases/05-summary.md` 中的引导问题。
-- 一致性检查（5 项）。
-- 产出：完整项目 Spec + ADR + 风险清单 + 里程碑计划。
-- 按 `agents/protocols/execution-trace.md` 格式，在输出末尾附执行追溯（skill 名称、任务类型、加载规则清单、跨域联动）。
-- **后续衔接提示（必须执行）**：Spec 输出完成后，明确告知用户下一步操作：
-  1. 使用 `$database-coding-guide` 将各模块的逻辑数据模型转化为物理 Schema（遵循 `rules/database/database.md`）。
-  2. 使用对应服务端的 `*-coding-guide` 实现 API 接口。
-  3. 如处于多 Agent 模式，由 Coordinator 按 `agents/protocols/coordination.md` 的阶段顺序自动调度。
+按维度定义可验证的约束:安全(参照 `rules/security.md`)、性能(响应时间/并发目标)、可用性(SLO)、扩展性、合规、成本、部署、三方集成、数据策略(备份/脱敏,参照 `rules/database.md`)、监控(参照 `rules/operations.md`)。
+产出:全局约束矩阵(仅列实际适用维度)。
 
-## 资源
-1. 阶段路由表：`references/spec-scenario-map.md`
-2. 引导问题模板：`agents/spec/phases/`
-3. 项目级 Spec 模板：`agents/spec/templates/project-spec-template.md`
-4. 模块级 Spec 模板：`agents/spec/templates/module-spec-template.md`
+## Phase 4:模块拆分
+
+1. 拆分模块并画依赖关系(单向,无环)。
+2. 每个模块按 12 维定义 Spec:职责、数据结构(逻辑模型)、API(路径/方法/请求响应/错误码)、业务规则、边界(不做什么)、状态机(如有)、权限、事件(发布/订阅)、错误处理、依赖、测试要点、迁移与初始化数据。
+3. API 契约遵循 `rules/collaboration.md`(统一响应结构、错误码格式)。
+
+产出:模块清单 + 各模块 Spec。
+
+## Phase 5:汇总输出
+
+1. 一致性检查:模块 API 互相引用一致、数据模型无冲突、错误码不重复、约束与决策不矛盾、MVP 范围与模块优先级对齐。
+2. 产出:完整项目 Spec(愿景 + 决策 + 约束 + 模块)+ ADR + 风险清单(风险/影响/缓解)+ 里程碑计划。
+3. 告知用户后续衔接:
+   - 数据库 Schema 落地 → `database` skill(遵循 `rules/database.md`)
+   - 各域编码 → 对应域 skill(go-server / frontend / flutter 等)
+   - UI 设计 → `design-guide` skill
