@@ -1,7 +1,5 @@
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
+# 文档文件
+docs
 
 # IDEs
 .idea/
@@ -14,5 +12,10 @@ desktop.ini
 *.tmp
 *.bak
 
-# windows 
+# windows
 rules/default.rules
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
