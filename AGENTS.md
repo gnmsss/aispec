@@ -10,6 +10,7 @@
 | .NET 服务端 | `rules/dotnet-server/` | `dotnet-server` | ASP.NET Core API、微服务、Worker Service |
 | Python 服务端 | `rules/python-server/` | `python-server` | FastAPI / Django / Flask |
 | Node.js 服务端 | `rules/node-server/` | `node-server` | NestJS / Express / Fastify |
+| Rust | `rules/rust/` | `rust` | axum 服务端、CLI、库(Tauri 后端叠加 tauri-desktop) |
 | 前端 | `rules/frontend/` | `frontend` | Vue3 后台管理、uni-app H5 / 微信小程序 |
 | Tauri 桌面 | `rules/tauri-desktop/` | `tauri-desktop` | Tauri v2 + Rust 跨平台桌面 |
 | .NET 桌面 | `rules/dotnet-desktop/` | `dotnet-desktop` | WPF / MAUI / WinForms |

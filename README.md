@@ -13,9 +13,9 @@
 
 AI 编码助手能力强大,但缺乏统一工程规范约束,容易在不同会话、不同成员间产生风格不一致、最佳实践遗漏等问题。AISpec 提供一套结构化的**规则(rules)+ 技能(skills)**,让 AI 在编码、审查、脚手架、设计等环节始终遵循团队工程标准。
 
-- **10 个技术域**:Go / .NET / Python / Node.js 服务端 · Vue3 + uni-app 前端 · Tauri / .NET 桌面 · Flutter / Android / iOS
+- **11 个技术域**:Go / .NET / Python / Node.js / Rust 服务端 · Vue3 + uni-app 前端 · Tauri / .NET 桌面 · Flutter / Android / iOS
 - **6 类跨域规范**:数据库 · 安全 · 前后端协作 · 设计 · 测试 · 运维
-- **15 个 Skills**:每域一个三合一 skill(编码引导 + 审查清单 + 脚手架)+ 4 个横切 skill
+- **16 个 Skills**:每域一个三合一 skill(编码引导 + 审查清单 + 脚手架)+ 4 个横切 skill
 - **标准格式**:AGENTS.md + Anthropic SKILL.md 格式,主流 AI CLI 开箱即用
 
 ## 体系结构
@@ -67,7 +67,7 @@ cp aispec/AGENTS.md aispec/CLAUDE.md .
 
 | 类别 | 技术栈(2026-08 基线) |
 |------|---------------------|
-| 服务端 | Go 1.25+ · .NET 10 LTS · Python 3.12+(uv/ruff/Pydantic v2) · Node.js 22+ LTS(ESM/pnpm) |
+| 服务端 | Go 1.25+ · .NET 10 LTS · Python 3.12+(uv/ruff/Pydantic v2) · Node.js 22+ LTS(ESM/pnpm) · Rust stable(axum/tokio) |
 | 前端 | Vue 3.5+ + Vite + Element Plus · uni-app(H5 + 微信小程序) |
 | 桌面 | Tauri 2.x(Rust) · WPF / MAUI / WinForms(.NET 10) |
 | 移动 | Flutter stable · Kotlin 2.x + Compose · Swift 6 + SwiftUI |

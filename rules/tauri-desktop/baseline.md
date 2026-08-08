@@ -7,7 +7,7 @@
 
 1. Tauri v2(禁止新建 v1 项目);Rust stable 最新版,`rust-toolchain.toml` 入库锁定;前端框架不限但必须 TypeScript(`strict: true`)。
 2. 包管理:Rust 用 Cargo,前端用 pnpm;提交前 `cargo check` 与前端构建无错误。
-3. Clippy 强制:`clippy::all` + `pedantic` warn,`unwrap_used = "deny"`;CI 执行 `cargo clippy -- -D warnings`、`cargo fmt --check`、`cargo audit`(高危漏洞阻断)。
+3. Rust 侧工具链、CI 门禁与语言规范整体遵循 `rules/rust/baseline.md`(clippy -D warnings、fmt、audit、错误处理、unsafe 治理、异步约束)。
 4. 前端遵循 `rules/frontend/baseline.md` 的 TypeScript、命名、调试代码与组件化约束(两级组件化 + 单文件 ≤ 300 行)。
 
 ## 分层架构(MUST)
@@ -33,9 +33,8 @@
 
 ## Rust 代码(MUST)
 
-1. 生产代码禁止 `unwrap()`(用 `?` 或 `expect("明确原因")`);禁止 `unsafe`(评审批准并注释除外)。
-2. 禁止忽略 `Result`(`let _ =` 需注释);禁止同步文件 I/O 阻塞异步运行时(用 `tokio::fs`)。
-3. 禁止硬编码 API 地址、密钥、凭据;配置走 `config.default.toml` + 用户配置目录。
+1. 全部遵循 `rules/rust/baseline.md` 语言基线(unwrap/expect 红线、unsafe 治理、Result 传播、异步禁阻塞等),本文件不再重复。
+2. 禁止硬编码 API 地址、密钥、凭据;配置走 `config.default.toml` + 用户配置目录。
 
 ## 红线(MUST NOT)
 
