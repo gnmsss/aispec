@@ -8,7 +8,8 @@
 <project-root>/
 ├── src/
 │   ├── pages/              # 页面(uni-app)或 views/(admin)
-│   ├── components/         # 通用组件(PascalCase)
+│   │   └── <feature>/components/  # 本功能业务组件(就近放置,禁止跨功能引用)
+│   ├── components/         # 通用组件(无业务,纯 props 驱动,PascalCase)
 │   ├── services/           # 接口层:请求封装 + API 模块
 │   ├── stores/             # Pinia stores
 │   ├── platform/           # 端差异适配层(h5/、mp-weixin/)

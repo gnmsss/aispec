@@ -22,14 +22,15 @@ description: 前端工程规范。编写或修改前端代码(Vue3 后台管理�
 1. 技术栈:无禁止依赖(Taro、双同类库);uni-app 端未用 Axios 作页面请求
 2. 类型:strict 全开,无无注释 any,导出 API 有显式类型
 3. 分层:请求走 services 层;组件未直写请求;平台分支走 platform/ 适配层
-4. 状态:全局 store 无页面私有状态;副作用有清理
-5. 安全:无硬编码密钥;无未消毒 v-html;日志埋点无敏感明文
-6. 性能:大列表有分页/虚拟滚动;组件按需引入;v-for 有稳定 key
-7. 小程序:无 SVG 图标;新页面声明主/分包归属;主包 ≤ 2MB
-8. 调试残留:无 console.log/debugger;生产构建配置了 console 清理
-9. 错误处理:接口异常有兜底与可见反馈;错误码走统一映射
-10. 提交:Conventional Commits;lint + typecheck + test 通过
-11. 契约:接口变更与后端契约同步(rules/collaboration.md)
+4. 组件化:通用组件无 store/api 依赖;业务组件在功能目录内且未被跨功能引用;单文件 ≤ 300 行(全文件口径);无 Part1/Part2 式机械拆分
+5. 状态:全局 store 无页面私有状态;副作用有清理
+6. 安全:无硬编码密钥;无未消毒 v-html;日志埋点无敏感明文
+7. 性能:大列表有分页/虚拟滚动;组件按需引入;v-for 有稳定 key
+8. 小程序:无 SVG 图标;新页面声明主/分包归属;主包 ≤ 2MB
+9. 调试残留:无 console.log/debugger;生产构建配置了 console 清理
+10. 错误处理:接口异常有兜底与可见反馈;错误码走统一映射
+11. 提交:Conventional Commits;lint + typecheck + test 通过
+12. 契约:接口变更与后端契约同步(rules/collaboration.md)
 
 ## 项目脚手架
 

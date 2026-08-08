@@ -14,8 +14,16 @@
 
 1. `strict: true`;禁止无边界 `any`,确需使用必须注释原因;导出函数/组件/composable 显式声明输入输出类型。
 2. 命名:变量函数 `camelCase`、类型组件 `PascalCase`、常量 `UPPER_SNAKE_CASE`;目录 `kebab-case`、组件文件 `PascalCase`;禁止语义重复文件名(`util.ts` 与 `utils.ts` 并存)。
-3. 单文件职责单一,超过 300 行应拆分;统一路径别名(`@components/*`、`@services/*` 等),禁止长相对路径。
+3. 单文件职责单一(行数红线见「组件化」节);统一路径别名(`@components/*`、`@services/*` 等),禁止长相对路径。
 4. 业务模块间禁止循环依赖;多端差异统一经 `src/platform/*` 适配层,禁止散落页面。
+
+## 组件化(MUST)
+
+1. 组件分两级:**通用组件**(无业务,放 `src/components/`,纯 props/events 驱动,禁止 import store/service/api——这是「无业务」的可验证判定标准)与**业务组件**(含业务,放 `src/pages/<功能>/components/` 就近,可访问本功能的 store/service)。
+2. 业务重复不是放弃组件化的理由:每个功能的列表、表单、卡片等仍必须拆为业务组件,只是留在功能目录内,不提前通用化。
+3. 业务组件禁止被其他功能目录引用;第二个功能需要且业务语义一致时,经评审提升到共享层;语义不同宁可复制,禁止靠 if 分支把两种业务揉进一个组件。
+4. **单文件 ≤ 300 行(全文件口径:SFC 的 template+script+style 合计 / 整个 TSX 文件),超线阻断**——超线视为组件化不彻底,必须继续拆分;CI 纳入行数检查。
+5. 拆分必须按语义:拆出的组件有明确命名与 props/events 边界;禁止为凑行数机械拆成 `XxxPart1`/`XxxPart2`;表格列定义、表单 schema 等纯配置抽为独立文件。
 
 ## API 与状态(MUST)
 
@@ -50,3 +58,4 @@
 4. 禁止页面直接调用平台 API 分支(`uni.getSystemInfo` 按端 if),必须走 `platform/` 适配层。
 5. 禁止提交 `console.log`/`debugger` 到主分支。
 6. 禁止未评审引入新依赖库;禁止复制粘贴页面级实现替代抽象业务组件。
+7. 禁止单文件超过 300 行;禁止无语义机械拆分凑行数。

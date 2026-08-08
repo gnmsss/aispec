@@ -43,6 +43,7 @@ MyApp/
 2. 长列表虚拟化(`VirtualizingStackPanel`/`CollectionView`);集合更新用 `ObservableCollection` 批量替换减少刷新。
 3. 数据绑定错误当缺陷处理:开发期开启绑定跟踪(`PresentationTraceSources`),CI 构建无绑定警告。
 4. 视觉与交互遵循 `rules/design.md`(无障碍:键盘导航、AutomationProperties、对比度)。
+5. View 组件化:页面级 XAML 按语义区块拆为 UserControl(通用控件无业务语义放共享控件库,业务控件就近放功能目录);避免巨型 XAML 单文件,以「区块可独立预览、可复用」为拆分标准;ViewModel 随视图同步拆分。
 
 ## 自动更新
 

@@ -20,6 +20,13 @@
 5. 状态类必须不可变(freezed 或手动 copyWith);状态变更可追踪(DevTools)。
 6. DI 统一(Riverpod provider 体系或 get_it),外部依赖全部注册容器,测试可替换 Mock;禁止业务代码直接实例化基础设施组件。
 
+## 组件化(MUST)
+
+1. Widget 分两级:**通用 widget**(无业务,放 `shared/` 或 designsystem,纯参数驱动,禁止依赖 provider/repository)与**业务 widget**(含业务,放 `features/<feature>/presentation/widgets/` 就近)。
+2. 业务 widget 禁止跨 feature 引用;第二个 feature 需要且业务语义一致时,经评审提升到 shared;语义不同宁可复制。
+3. **单 dart 文件 ≤ 300 行,超线阻断**——超线视为 widget 拆分不彻底;超长 build 优先拆为独立命名的子 widget 类(而非私有 build 方法,利于重组优化)。
+4. 拆分必须按语义命名并有清晰参数边界;禁止机械拆分凑行数;大段配置(表单定义、静态数据)抽独立文件。
+
 ## 代码质量(MUST)
 
 1. 禁止 `print()` 输出日志(统一日志组件);禁止 `dynamic` 绕过类型检查(确需注释原因);禁止滥用 `!` 强制解包。

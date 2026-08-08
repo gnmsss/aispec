@@ -23,12 +23,13 @@ description: Flutter 工程规范。编写或修改 Flutter/Dart 应用代码(�
 2. 状态:全项目单一状态管理方案;状态类不可变;setState 仅限局部 UI;无超 2 层回调链
 3. build():无网络/数据库操作、无 Controller 创建;itemBuilder 无 Stream/Controller
 4. 列表:长列表用 builder 构造;图片有缓存尺寸
-5. 异步:主 Isolate 无重计算;异步后使用 context 前检查 mounted
-6. 类型:无未注释 dynamic;无滥用 !;无空 catch;无 ignore 绕过 lint
-7. 安全:无硬编码密钥;Token 在 secure_storage;日志无敏感信息;证书校验未禁用
-8. 主题:无硬编码颜色/字号/间距,走 token;文案走 arb 国际化
-9. 依赖:版本有约束;新包经评审;lock 文件已更新
-10. 测试:核心逻辑有单元测试;关键页面覆盖三态;缺陷修复有回归测试
+5. 组件化:通用 widget 无 provider/repository 依赖;业务 widget 在 feature 内且未跨 feature 引用;单文件 ≤ 300 行;超长 build 拆为命名子 widget
+6. 异步:主 Isolate 无重计算;异步后使用 context 前检查 mounted
+7. 类型:无未注释 dynamic;无滥用 !;无空 catch;无 ignore 绕过 lint
+8. 安全:无硬编码密钥;Token 在 secure_storage;日志无敏感信息;证书校验未禁用
+9. 主题:无硬编码颜色/字号/间距,走 token;文案走 arb 国际化
+10. 依赖:版本有约束;新包经评审;lock 文件已更新
+11. 测试:核心逻辑有单元测试;关键页面覆盖三态;缺陷修复有回归测试
 
 ## 项目脚手架
 
